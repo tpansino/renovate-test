@@ -1,0 +1,38 @@
+{
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["after 9pm"]
+  },
+  "pre-commit": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": ".*",
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all dependencies (non-major versions)",
+      "groupSlug": "all-non-major"
+    },
+    {
+      "matchManagers": ["pyenv"],
+      "matchUpdateTypes": ["minor"],
+      "groupName": "python version (minor)",
+      "groupSlug": "python-version-minor"
+    },
+    {
+      "matchManagers": ["terraform"],
+      "matchDepTypes": ["required_provider", "required_version"],
+      "enabled": false
+    },
+    {
+      "matchManagers": ["terraform", "poetry", "yarn", "npm"],
+      "rangeStrategy": "update-lockfile"
+    }
+  ],
+  "pin": {
+    "enabled": false
+  },
+  "schedule": ["after 9pm"],
+  "separateMajorMinor": true,
+  "timezone": "America/Los_Angeles"
+}
