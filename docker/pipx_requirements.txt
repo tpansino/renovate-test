@@ -1,6 +1,6 @@
 aws-sso-util==4.28.0
-awscli==1.25.40
+awscli==1.25.42
 black==22.6.0
 poetry==1.1.14
 pre-commit==2.20.0
-pyflakes==2.4.0
+pyflakes==2.5.0
