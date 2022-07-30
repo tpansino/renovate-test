@@ -1,7 +1,7 @@
 {
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["after 9pm"]
+    "schedule": ["after 4pm"]
   },
   "pre-commit": {
     "enabled": true
@@ -32,7 +32,7 @@
   "pin": {
     "enabled": false
   },
-  "schedule": ["after 9pm"],
+  "schedule": ["after 4pm"],
   "separateMajorMinor": true,
   "timezone": "America/Los_Angeles"
 }
