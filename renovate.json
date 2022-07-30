@@ -25,7 +25,7 @@
       "enabled": false
     },
     {
-      "matchManagers": ["terraform", "poetry", "yarn", "npm"],
+      "matchManagers": ["terraform", "poetry", "npm"],
       "rangeStrategy": "update-lockfile"
     }
   ],
