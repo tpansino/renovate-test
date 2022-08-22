@@ -1,3 +1,3 @@
-FROM ubuntu:22.04@sha256:34fea4f31bf187bc915536831fd0afc9d214755bf700b5cdb1336c82516d154e
+FROM ghcr.io/tpansino/renovate-test:latest
 
-COPY file /file
+COPY file2 /file2
