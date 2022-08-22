@@ -1,3 +1,3 @@
-FROM ghcr.io/tpansino/renovate-test-base:latest@sha256:b00b6f8007475514a224396f89d197b91a0f109b7cc8a4101b3a90e05d639211
+FROM ghcr.io/tpansino/renovate-test-base:latest@sha256:a35ffd28e0607654f6e069d7559ac8dfe2f366eab220e881ae25849b8b362c0e
 
 COPY file2 /file2
