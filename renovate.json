@@ -10,7 +10,7 @@
   "packageRules": [
     {
       "matchPackagePatterns": ".*",
-      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all dependencies (non-major versions)",
       "groupSlug": "all-non-major"
     },
