@@ -28,9 +28,12 @@
     {
       "matchManagers": ["terraform", "poetry", "npm"],
       "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchManagers": ["dockerfile"],
+      "pinDigests": true
     }
   ],
-  "pinDigests": true,
   "separateMajorMinor": true,
   "timezone": "America/Los_Angeles"
 }
