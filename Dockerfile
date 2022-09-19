@@ -31,9 +31,9 @@ RUN set -ex && \
   find /var/lib/apt/lists -delete -mindepth 1
 
 # renovate: datasource=github-releases depName=rhysd/actionlint
-ENV ACTIONLINT_VERSION=1.6.17
+ENV ACTIONLINT_VERSION=v1.6.17
 RUN set -ex && \
-  wget -nv -P /tmp/ https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz && \
+  wget -nv -P /tmp/ https://github.com/rhysd/actionlint/releases/download/${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION#v}_linux_amd64.tar.gz && \
   tar -xzf /tmp/actionlint*.tar.gz && \
   rm /tmp/actionlint*.tar.gz && \
   chmod 755 actionlint && \
