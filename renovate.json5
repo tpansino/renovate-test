@@ -1,0 +1,65 @@
+{
+  extends: ["config:base"],
+  lockFileMaintenance: {
+    enabled: true,
+    // This has to be declared here, for some reason the top-level schedule isn't respected by lockFileMaintenance
+    schedule: ["before 6am on Wednesday"],
+  },
+  "pre-commit": {
+    enabled: true,
+  },
+  packageRules: [
+    // By default, we want almost every type of update in a single PR,
+    // unless it's a major update and might have some backwards-incompatible change in it.
+    {
+      matchPackagePatterns: ".*",
+      matchUpdateTypes: ["minor", "patch", "pin", "digest", "pinDigest"],
+      groupName: "all dependencies (non-major versions)",
+      groupSlug: "all-non-major",
+    },
+    // Python releases backwards-incompatible changes with each minor, so treat
+    // minor Python versions as if they were major and stick them in their own PR
+    {
+      matchManagers: ["pyenv"],
+      matchUpdateTypes: ["minor"],
+      groupName: "python version (minor)",
+      groupSlug: "python-version-minor",
+    },
+    // We don't want our Terraform required providers and versions to be automatically bumped inside
+    // our modules. That's something we touch when we update the module code to no longer
+    // be compatible with a specific version.
+    {
+      matchManagers: ["terraform"],
+      matchDepTypes: ["required_provider", "required_version"],
+      enabled: false,
+    },
+    // This should update the lockfiles for the matched managers, rather than the constraints files.
+    // (I'm not quite sure if it actually works though)
+    {
+      matchManagers: ["terraform", "poetry", "npm"],
+      rangeStrategy: "update-lockfile",
+    },
+    // Work-around a bug where Renovate gets confused and tries to pin stuff that isn't pinnable.
+    {
+      matchManagers: ["dockerfile"],
+      pinDigests: true,
+    },
+  ],
+  // See
+
+  // https://docs.renovatebot.com/presets-regexManagers/
+  regexManagers: [
+    {
+      fileMatch: ["(^|/|.)Dockerfile$", "(^|/)Dockerfile[^/]*$"],
+      matchStrings: [
+        '# renovate: datasource=(?<datasource>[a-z-]+?) depName=(?<depName>[^\\s]+?)(?: (lookupName|packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[a-z-0-9]+?))?\\s(?:ENV|ARG) .+?_VERSION="?(?<currentValue>.+?)"?\\s',
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver-coerced{{/if}}",
+    },
+  ],
+  // NOTE: The schedule window MUST be more than 4 hours, or else Renovate doesn't have enough time to
+  // pick up our repos and run against them
+  schedule: ["before 6am on Wednesday"],
+  separateMajorMinor: true,
+  timezone: "America/Los_Angeles",
+}
